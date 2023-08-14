@@ -1,6 +1,18 @@
 
+
 const gameBoard = (() => {
     let board = Array(9).fill(" ");
+    let win = false;
+    const winPos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
 
     const areEqualNotNull = (values) => {
         if (values[0] === " ") return false;
@@ -9,11 +21,12 @@ const gameBoard = (() => {
     }
   
     const checkWin = () => {
-        if(board[0] != " "){
-            if(areEqualNotNull([board[0], board[4], board[8]])){
-                console.log(board[0] + " wins");
-            }            
-        }        
+        for(let i = 0; i < winPos.length; i++){
+            if(areEqualNotNull([board[winPos[i][0]], board[winPos[i][1]], board[winPos[i][2]]])){
+                win = true;
+                console.log(board[winPos[i][0]] + " wins");
+            }
+        }
     }
 
     const play = (mark, pos) => {
@@ -44,3 +57,7 @@ const displayController = (() => {
     }
 })();
 
+const cells = document.querySelectorAll(".cell");
+cells.forEach(cell => {
+    cell.addEventListener('click', () => {gameBoard.play("x", parseInt(cell.className[5]) - 1)});
+})
