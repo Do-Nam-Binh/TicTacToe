@@ -20,6 +20,7 @@ const gameBoard = (() => {
         if(board[pos] == " "){
             board[pos] = mark;
             checkWin();
+            displayController.updateDisplay(board);
         }else{
             console.log("Already a mark there")
         }       
@@ -30,7 +31,16 @@ const gameBoard = (() => {
     }
 })();
 
-const displayController = () => {
+const displayController = (() => {
+    const updateDisplay = (board) => {
+        for(let i = 0; i < board.length; i++){
+            const cells = document.querySelectorAll(".cell");
+            cells[i].textContent = board[i];
+        }
+    }
 
-}
+    return{
+        updateDisplay,
+    }
+})();
 
