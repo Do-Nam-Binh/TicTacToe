@@ -18,11 +18,11 @@ const gameBoard = (() => {
     ]
 
     const playerTurn = () => {
-        if(document.querySelector(".playerDisplay").textContent == "Player 1"){
-            document.querySelector(".playerDisplay").textContent = "Player 2";
+        if(document.querySelector(".playerDisplay").textContent == "Player 1 (X)"){
+            document.querySelector(".playerDisplay").textContent = "Player 2 (O)";
             player = 2;
         }else{
-            document.querySelector(".playerDisplay").textContent = "Player 1";
+            document.querySelector(".playerDisplay").textContent = "Player 1 (X)";
             player = 1;
         }
     }
