@@ -4,6 +4,7 @@ const gameBoard = (() => {
     let board = Array(9).fill(" ");
     let win = false;
     let player = 1;
+    let turnCount = 0;
 
     const winPos = [
         [0, 1, 2],
@@ -37,7 +38,13 @@ const gameBoard = (() => {
             if(areEqualNotNull([board[winPos[i][0]], board[winPos[i][1]], board[winPos[i][2]]])){
                 win = true;
                 console.log("Player "+ player + " wins");
+                resetBoard();
             }
+        }
+        if(turnCount == 9){
+            console.log("Its a draw!");
+            turnCount = 0;
+            resetBoard();
         }
     }
 
@@ -51,12 +58,23 @@ const gameBoard = (() => {
         }
         if(board[pos] == " "){
             board[pos] = mark;
+            turnCount++;
             checkWin();
             playerTurn();
-            displayController.updateDisplay(board);
+            displayController.updateDisplay(board);            
         }else{
             console.log("Already a mark there")
         }       
+    }
+
+    const resetBoard = () => {
+        for(let i = 0; i < board.length; i++){
+            board[i] = " ";
+        }
+        player = 1;
+        turnCount = 0;
+        win = false;
+        displayController.updateDisplay(board);
     }
 
     return {
