@@ -3,6 +3,8 @@
 const gameBoard = (() => {
     let board = Array(9).fill(" ");
     let win = false;
+    let player = 1;
+
     const winPos = [
         [0, 1, 2],
         [3, 4, 5],
@@ -14,6 +16,16 @@ const gameBoard = (() => {
         [2, 4, 6]
     ]
 
+    const playerTurn = () => {
+        if(document.querySelector(".playerDisplay").textContent == "Player 1"){
+            document.querySelector(".playerDisplay").textContent = "Player 2";
+            player = 2;
+        }else{
+            document.querySelector(".playerDisplay").textContent = "Player 1";
+            player = 1;
+        }
+    }
+
     const areEqualNotNull = (values) => {
         if (values[0] === " ") return false;
       
@@ -24,15 +36,23 @@ const gameBoard = (() => {
         for(let i = 0; i < winPos.length; i++){
             if(areEqualNotNull([board[winPos[i][0]], board[winPos[i][1]], board[winPos[i][2]]])){
                 win = true;
-                console.log(board[winPos[i][0]] + " wins");
+                console.log("Player "+ player + " wins");
             }
         }
     }
 
-    const play = (mark, pos) => {
+    const play = (pos) => {
+        let mark;
+        if(player == 1){
+            mark = "X";
+        }
+        if(player == 2){
+            mark = "O";
+        }
         if(board[pos] == " "){
             board[pos] = mark;
             checkWin();
+            playerTurn();
             displayController.updateDisplay(board);
         }else{
             console.log("Already a mark there")
@@ -59,5 +79,5 @@ const displayController = (() => {
 
 const cells = document.querySelectorAll(".cell");
 cells.forEach(cell => {
-    cell.addEventListener('click', () => {gameBoard.play("x", parseInt(cell.className[5]) - 1)});
+    cell.addEventListener('click', () => {gameBoard.play(parseInt(cell.className[5]) - 1)});
 })
