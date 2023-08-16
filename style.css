@@ -69,3 +69,43 @@ body{
     font-size: 100px;
     pointer-events: all;
 }
+
+.winScreenBackground{
+    position: absolute;
+    background-color: rgba(151, 144, 144, 0.8);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;    
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.winScreenBackgroundOff{
+    display: none;
+}
+
+.winScreen{
+    display: grid;
+    grid-template-rows: 1fr 100px;
+    height: 200px;
+    width: 400px;
+    align-items: center;
+    justify-items: center;
+    background-color: rgba(151, 144, 144, 1);
+    border-radius: 15px;
+}
+
+.winScreen div{
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.winScreen button{
+    padding: 20px 50px;
+    font-size: 18px;
+    border-radius: 15px;
+    border-style: none;
+    
+}
