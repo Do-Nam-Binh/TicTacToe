@@ -99,3 +99,14 @@ const cells = document.querySelectorAll(".cell");
 cells.forEach(cell => {
     cell.addEventListener('click', () => {gameBoard.play(parseInt(cell.className[5]) - 1)});
 })
+
+const startBtn = document.querySelector(".startGame");
+const turnTracker = document.querySelector(".turnTracker");
+startBtn.addEventListener('click', () => {
+    console.log("start button clicked");
+    cells.forEach(cell => {
+        cell.classList.add("cellActive");
+    });
+    turnTracker.classList.add("turnTrackerActive");
+    startBtn.classList.add("startGameDeactivated");
+})
