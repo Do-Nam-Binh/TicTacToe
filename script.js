@@ -6,6 +6,8 @@ const gameBoard = (() => {
     let player = 1;
     let turnCount = 0;
 
+    
+
     const winPos = [
         [0, 1, 2],
         [3, 4, 5],
@@ -16,6 +18,7 @@ const gameBoard = (() => {
         [0, 4, 8],
         [2, 4, 6]
     ]
+
 
     const playerTurn = () => {
         if(document.querySelector(".playerDisplay").textContent == "Player 1 (X)"){
@@ -38,13 +41,16 @@ const gameBoard = (() => {
             if(areEqualNotNull([board[winPos[i][0]], board[winPos[i][1]], board[winPos[i][2]]])){
                 win = true;
                 console.log("Player "+ player + " wins");
-                resetBoard();
+                winScreen.classList.remove("winScreenBackgroundOff");
+                winText.textContent = "Player "+ player + " wins";
+                // resetBoard();
             }
         }
         if(turnCount == 9){
             console.log("Its a draw!");
             turnCount = 0;
-            resetBoard();
+            winScreen.classList.remove("winScreenBackgroundOff");
+            winText.textContent = "It's a draw!";
         }
     }
 
@@ -72,13 +78,15 @@ const gameBoard = (() => {
             board[i] = " ";
         }
         player = 1;
+        document.querySelector(".playerDisplay").textContent = "Player 1 (X)";
         turnCount = 0;
         win = false;
         displayController.updateDisplay(board);
     }
-
+    
     return {
         play,
+        resetBoard
     }
 })();
 
@@ -110,3 +118,12 @@ startBtn.addEventListener('click', () => {
     turnTracker.classList.add("turnTrackerActive");
     startBtn.classList.add("startGameDeactivated");
 })
+
+const winScreen = document.querySelector(".winScreenBackground");
+const winText = document.querySelector(".playerWon");
+
+const replayBtn = document.querySelector(".resetGame");
+replayBtn.addEventListener('click', () => {
+    winScreen.classList.add("winScreenBackgroundOff");
+    gameBoard.resetBoard();
+})  
